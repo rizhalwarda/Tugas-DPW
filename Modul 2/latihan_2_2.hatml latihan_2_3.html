@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran Mahasiswa Baru</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 20px;
+        }
+        .form-container {
+            background-color: #ffffff;
+            width: 820px;
+            max-width: 100%;
+            padding: 25px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #d9dee4;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #1e2a3a;
+            font-weight: 600;
+            font-size: 26px;
+            letter-spacing: 0.3px;
+            border-bottom: 2px solid #cfd9e6;
+            padding-bottom: 12px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 12px 15px;
+            align-items: center;
+        }
+        .form-grid label {
+            font-weight: 500;
+            color: #1e3c5c;
+            font-size: 14.5px;
+            justify-self: end;
+            white-space: nowrap;
+        }
+        .form-grid input, 
+        .form-grid select, 
+        .form-grid textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #b6c4d6;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #fefefe;
+            transition: 0.15s;
+        }
+        .form-grid input:focus,
+        .form-grid select:focus,
+        .form-grid textarea:focus {
+            border-color: #2b6c9e;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(43,108,158,0.15);
+        }
+        .form-grid textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        .full-width-row {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 12px 15px;
+            align-items: start;
+        }
+        .inline-info-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+            background: #f8fafd;
+            padding: 8px 15px;
+            border-radius: 10px;
+            border: 1px solid #dde3ec;
+            margin: 5px 0;
+        }
+        .inline-info-group span {
+            font-weight: 500;
+            color: #163956;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            background: #f8fafd;
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid #dde3ec;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .checkbox-item label {
+            justify-self: start;
+            white-space: nowrap;
+            font-weight: 400;
+            color: #1d2c41;
+        }
+        .button-bar {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0 5px;
+        }
+        .btn {
+            border: none;
+            padding: 12px 38px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.15s;
+            background-color: #e2e8f0;
+            color: #1e3a5f;
+            border: 1px solid transparent;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn-daftar {
+            background-color: #1e4a76;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,70,130,0.25);
+        }
+        .btn-daftar:hover {
+            background-color: #123a5a;
+            transform: scale(1.02);
+        }
+        .btn-batal {
+            background-color: #f0f4fa;
+            color: #1e3a5f;
+            border: 1px solid #bdc9db;
+        }
+        .btn-batal:hover {
+            background-color: #dae1ec;
+        }
+        hr {
+            grid-column: 1/-1;
+            border: none;
+            border-top: 2px dotted #b3c4d8;
+            margin: 12px 0 8px;
+        }
+        .file-note {
+            font-size: 12px;
+            color: #4d627a;
+            margin-top: 4px;
+            grid-column: 2;
+        }
+        /* penyesuaian untuk baris alamat */
+        .address-group {
+            display: contents;
+        }
+        .small-note {
+            font-size: 12px;
+            color: #445e7e;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>✎ Form Pendaftaran Mahasiswa Baru</h2>
+
+        <!-- Form dengan metode POST dan aksi ke proses.php (sesuai deskripsi) -->
+        <form action="proses.php" method="post" enctype="multipart/form-data">
+            <div class="form-grid">
+                <!-- Nama Lengkap -->
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" id="nama" name="nama" required>
+
+                <!-- Tempat/Tanggal Lahir (dengan format dan batasan tahun) -->
+                <label for="tempat_lahir">Tempat/Tanggal lahir</label>
+                <div style="display: flex; gap: 6px;">
+                    <input type="text" id="tempat_lahir" name="tempat_lahir" placeholder="Tempat" style="width: 40%;" required>
+                    <input type="text" id="tanggal_lahir" name="tanggal_lahir" placeholder="DD-MM-YYYY" 
+                           pattern="(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(198[9]|199[0-4])" 
+                           title="Format DD-MM-YYYY, tahun 1989 - 1994" 
+                           style="width: 60%;" required>
+                </div>
+                <div style="grid-column: 2; font-size: 12px; color: #4f6587; margin-top: -5px;">contoh: 15-05-1992 (tahun 1989‑1994)</div>
+
+                <!-- Agama -->
+                <label for="agama">Agama</label>
+                <select id="agama" name="agama" required>
+                    <option value="" disabled selected>-- Pilih Agama --</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen Protestan">Kristen Protestan</option>
+                    <option value="Katolik">Katolik</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Buddha">Buddha</option>
+                    <option value="Konghucu">Konghucu</option>
+                </select>
+
+                <!-- Jenis Kelamin -->
+                <label>Jenis Kelamin</label>
+                <div style="display: flex; gap: 20px;">
+                    <label style="justify-self: start; font-weight: 400;"><input type="radio" name="jenis_kelamin" value="Laki-laki" required> Laki-laki</label>
+                    <label style="justify-self: start; font-weight: 400;"><input type="radio" name="jenis_kelamin" value="Perempuan" required> Perempuan</label>
+                </div>
+
+                <!-- No. Ijazah SMA/MA -->
+                <label for="no_ijazah">No. Ijazah SMA/MA</label>
+                <input type="text" id="no_ijazah" name="no_ijazah" placeholder="misal: DN-01-123456" required>
+
+                <!-- Foto dengan batasan ukuran (client tidak bisa strict ukuran, tapi diberi info) -->
+                <label for="foto">Foto <span style="font-weight: normal;">(Maks. 20 KB)</span></label>
+                <input type="file" id="foto" name="foto" accept="image/*" required>
+                <div class="file-note">Ukuran file maksimal 20 KB. (akan divalidasi server)</div>
+
+                <!-- Nama Ayah -->
+                <label for="nama_ayah">Nama Ayah</label>
+                <input type="text" id="nama_ayah" name="nama_ayah" required>
+
+                <!-- Nama Ibu -->
+                <label for="nama_ibu">Nama Ibu</label>
+                <input type="text" id="nama_ibu" name="nama_ibu" required>
+
+                <!-- Alamat Rumah (textarea) -->
+                <label for="alamat_rumah">Alamat Rumah</label>
+                <textarea id="alamat_rumah" name="alamat_rumah" rows="2" required></textarea>
+
+                <!-- No. Telp -->
+                <label for="no_telp">No. Telp</label>
+                <input type="tel" id="no_telp" name="no_telp" placeholder="085854454953" required>
+
+                <!-- Nama Sekolah Asal -->
+                <label for="sekolah_asal">Nama Sekolah Asal</label>
+                <input type="text" id="sekolah_asal" name="sekolah_asal" required>
+
+                <!-- Alamat Sekolah Asal (textarea) -->
+                <label for="alamat_sekolah">Alamat Sekolah Asal</label>
+                <textarea id="alamat_sekolah" name="alamat_sekolah" rows="2" required></textarea>
+
+                <!-- Jurusan Dipilih -->
+                <label for="jurusan">Jurusan Dipilih</label>
+                <select id="jurusan" name="jurusan" required>
+                    <option value="" disabled selected>-- Pilih Jurusan --</option>
+                    <option value="Teknik Informatika">Teknik Informatika</option>
+                    <option value="Sistem Informasi">Sistem Informasi</option>
+                    <option value="Manajemen">Manajemen</option>
+                    <option value="Akuntansi">Akuntansi</option>
+                    <option value="Desain Komunikasi Visual">Desain Komunikasi Visual</option>
+                </select>
+
+                <!-- Tahu informasi ini dari (dengan pilihan persis seperti gambar -->
+                <label>Tahu informasi ini dari :</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item"><input type="checkbox" name="info[]" value="Koran" id="info_koran"> <label for="info_koran">Koran</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="info[]" value="Website" id="info_website"> <label for="info_website">Website</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="info[]" value="Televisi" id="info_televisi"> <label for="info_televisi">Televisi</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="info[]" value="Radio" id="info_radio"> <label for="info_radio">Radio</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="info[]" value="Teman" id="info_teman"> <label for="info_teman">Teman</label></div>
+                    <!-- catatan: pada gambar tertulis "Tenan" kemungkinan typo dari "Teman", tapi saya tampilkan sesuai gambar: Tenan -->
+                    <div class="checkbox-item"><input type="checkbox" name="info[]" value="Tenan" id="info_tenan"> <label for="info_tenan">Tenan</label></div>
+                </div>
+                <!-- Baris opsional: sesuai gambar ada tulisan "Pilihan:" di atas, itu sudah terwakili -->
+
+                <!-- Garis pemisah opsional (menyesuaikan tampilan) -->
+                <hr>
+
+                <!-- Tombol DAFTAR dan BATAL sesuai gambar -->
+                <div class="button-bar">
+                    <button type="submit" class="btn btn-daftar">DAFTAR</button>
+                    <button type="reset" class="btn btn-batal">Batal</button>
+                </div>
+
+                <!-- Catatan kecil: format tanggal dan metode post (untuk memudahkan pengguna) -->
+                <div style="grid-column: 1/-1; font-size: 12px; color: #4e6180; text-align: center; margin-top: 5px;">
+                    Metode POST ke proses.php | Tanggal lahir : DD-MM-YYYY (1989‑1994)
+                </div>
+            </div><!-- end form-grid -->
+        </form>
+    </div>
+
+    <!-- penjelasan singkat sesuai deskripsi: script proses.php tidak perlu dibuat, hanya frontend -->
+    <!-- validasi tahun lahir dibantu pattern (hanya klien) -->
+</body>
+</html>
